@@ -1,8 +1,8 @@
 #ifndef READDATA_HPP
 #define READDATA_HPP
 
-#include <vector>
 #include <iostream>
+#include <vector>
 #include <string>
 
 struct Element

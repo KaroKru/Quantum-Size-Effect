@@ -2,6 +2,7 @@
 #define UNITCELLINFO_HPP
 
 #include "ReadData.hpp"
+#include <vector>
 
 class UnitCellInfo
 {
