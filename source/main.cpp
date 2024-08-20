@@ -2,6 +2,9 @@
 #include "UnitCellInfo.hpp"
 #include "SampleInfo.hpp"
 #include "SphereCalculation.hpp"
+#include "ResultCalculation.hpp"
+#include "ElectronicDensity.hpp"
+#include "ElectronicCalculation.hpp"
 
 int main()
 {
@@ -12,16 +15,24 @@ int main()
 	SampleInfo sample(read);
 	sample.setValue();
 	sample.sampleArea();
-	sample.sampleVolume();
+	//sample.sampleVolume();
 
 	UnitCellInfo cell(read);
 	cell.setValue();
 	cell.cellVolume();
 	cell.electronDensity();
 
-	SphereCalculation sphere(&cell, &sample);
+	ResultCalculation resultCalculation(&cell, &sample);
+
+	SphereCalculation sphere(&sample, &resultCalculation);
 	sphere.calculation();
 	sphere.saved();
+
+	ElectronicDensity density(&sample);
+
+	ElectronicCalculation electronic(&density);
+	electronic.calculation();
+	electronic.saved();
 
 	delete read;
 

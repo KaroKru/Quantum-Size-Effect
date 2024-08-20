@@ -1,8 +1,9 @@
 #ifndef SPHERECALCULATION_HPP
 #define SPHERECALCULATION_HPP
 
-#include "UnitCellInfo.hpp"
 #include "SampleInfo.hpp"
+#include "ResultCalculation.hpp"
+#include <vector>
 
 struct SavedData
 {
@@ -16,23 +17,15 @@ struct SavedData
 class SphereCalculation
 {
     public:
-    SphereCalculation(UnitCellInfo* cellInfo, SampleInfo* sampleInfo);
+    SphereCalculation(SampleInfo* sampleInf, ResultCalculation* calculation);
     ~SphereCalculation();
 
-    double deltaKz(double L);
-    int nrElectrons();
-    double sum(double P);
-    double fermiSphere(double P, double L);
-    double DOSFermi(double P, double L);
-    double sum2(double P);
-    double totalEnergy(double P, double L);
-    double totalEnergyOverElectronNumber(double P, double L);
     void calculation();
     void saved();
 
     private:
-    UnitCellInfo* cell;
-    SampleInfo* sample;
+    SampleInfo* info;
+    ResultCalculation* results;
     std::vector<SavedData> data;
 };
 

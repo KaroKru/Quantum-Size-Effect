@@ -2,6 +2,7 @@
 #define SAMPLEINFO_HPP
 
 #include "ReadData.hpp"
+#include <vector>
 
 class SampleInfo
 {
@@ -10,7 +11,6 @@ class SampleInfo
     ~SampleInfo();
 
     double sampleArea();
-    double sampleVolume();
     void setValue();
     double getSampleThickness();
 

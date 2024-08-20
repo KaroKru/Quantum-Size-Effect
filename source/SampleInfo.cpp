@@ -27,8 +27,3 @@ double SampleInfo::sampleArea()
     return area;
 }
 
-double SampleInfo::sampleVolume()
-{
-    double volume = sampleArea() * info[0].zLength;
-    return volume;
-}

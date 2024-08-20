@@ -1,7 +1,6 @@
-#include <fstream>
 #include "ReadData.hpp"
+#include <fstream>
 #include <sstream> 
-#include <cmath>
 
 ReadData::ReadData()
 {
