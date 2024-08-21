@@ -3,71 +3,55 @@ import numpy as np
 import csv
 import os
 
+def plot(x, y, title, xLabel, yLabel):
+    plt.figure(figsize=(10,6))
+    plt.title(title)
+    plt.plot(x, y)
+    plt.xlabel(xLabel)
+    plt.ylabel(yLabel)
+    plt.grid(True)
+    plt.show()
+
+def spherePlot(data):
+    x = [row[0] for row in data]
+    columnsNum = len(data[0])
+
+    for num in range(1, columnsNum):
+        y = [row[num] for row in data]
+
+        if num == 1:
+            title = "Fermi wave vector.\n"
+            xLabel = "Lz [nm]"
+            yLabel = "kF [nm^-1]"
+
+        elif num == 2:
+            title = "Number of subbands inside the Fermi surface.\n"
+            xLabel = "Lz [nm]"
+            yLabel = "P"
+
+        elif num == 3:
+            title = "Electron density of states at the Fermi energy.\n"
+            xLabel = "Lz [nm]"
+            yLabel = "D(EF) [eV^-1 nm^-3]"
+
+        elif num == 4:
+            title = "Electron density of states at the Fermi energy.\n"
+            xLabel = "Lz [nm]"
+            yLabel = "E/n [eV]"
+
+        plot(x, y, title, xLabel, yLabel)
+
+
 def electronicDensity(data):
     E = [row[1] for row in data]
     DE = [row[0] for row in data]
+    title = "Electronic density of states per unit volume as a function of the energy for specific values of sample thickness. \n"
+    xLabel = "E [eV]"
+    yLabel = "D(E) [eV^-1 nm^-3]"
 
-    plt.figure(figsize=(10,6))
-    plt.title("Electronic density of states per unit volume as a function of the energy for specific values of sample thickness. \n")
-    plt.plot(E, DE)
-    plt.xlabel('E')
-    plt.ylabel('DE')
-    plt.grid(True)
-    plt.show()
+    plot(E, DE, title, xLabel, yLabel)
 
-
-def fermiWaveVector(data):
-    Lz = [row[0] for row in data]
-    kF = [row[1] for row in data]
-
-    plt.figure(figsize=(10,6))
-    plt.title("Fermi wave vector.\n")
-    plt.plot(Lz, kF)
-    plt.xlabel('Lz')
-    plt.ylabel('kF')
-    plt.grid(True)
-    plt.show()
-
-def subbandsNumber(data):
-    Lz = [row[0] for row in data]
-    P = [row[2] for row in data]
-
-    plt.figure(figsize=(10,6))
-    plt.title("Number of subbands inside the Fermi surface.\n")
-    plt.plot(Lz, P)
-    plt.xlabel('Lz')
-    plt.ylabel('P')
-    plt.grid(True)
-    plt.show()
-
-def fermiElectronDensity(data):
-    Lz = [row[0] for row in data]
-    dos = [row[3] for row in data]
-
-    plt.figure(figsize=(10,6))
-    plt.title("Electron density of states at the Fermi energy.\n")
-    plt.plot(Lz, dos)
-    plt.xlabel('Lz [nm]')
-    plt.ylabel('DOS')
-    plt.grid(True)
-    plt.show()
-
-def electronEnergy(data):
-    Lz = [row[0] for row in data]
-    Ef = [row[4] for row in data]
-
-    plt.figure(figsize=(10,6))
-    plt.title("Electron energy per electron.\n")
-    plt.plot(Lz, Ef)
-    plt.xlabel('Lz')
-    plt.ylabel('Ef')
-    plt.grid(True)
-    plt.show()
-
-
-def sphereResults():
-    
-    filePath = os.path.join('..', 'build', 'savedData.txt')
+def readData(filePath):
     data = []
 
     try:
@@ -82,31 +66,22 @@ def sphereResults():
         print("File not found.")
     except IOError:
         print("Error during reading process.")
-        
-    fermiWaveVector(data)
-    subbandsNumber(data)
-    fermiElectronDensity(data)
-    electronEnergy(data)
+
+    return data
+
+def sphereResults():
+    filePath = os.path.join('..', 'build', 'savedData.txt')
+    data = readData(filePath)
+
+    if data:
+        spherePlot(data)
 
 def electronicResults():
-    eData = []
-
     filePath = os.path.join('..', 'build', 'electronicData.txt')
+    eData = readData(filePath)
 
-    try:
-        with open(filePath, 'r') as file:
-            for line in file:
-                try:
-                    values = list(map(float, line.split(',')))
-                    eData.append(values)
-                except ValueError as e:
-                    print(f"Data conversion error at line: {line.strip()}. Details: {e}")
-    except FileNotFoundError:
-        print("File not found.")
-    except IOError:
-        print("Error during reading process.")
-
-    electronicDensity(eData)
+    if eData:
+        electronicDensity(eData)
 
 if __name__ == "__main__":
     sphereResults()
