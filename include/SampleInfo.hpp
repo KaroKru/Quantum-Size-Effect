@@ -7,7 +7,7 @@
 class SampleInfo
 {
     public:
-    SampleInfo(ReadData* data);
+    SampleInfo(ReadData* dataValues);
     ~SampleInfo();
 
     double sampleArea();
@@ -16,7 +16,7 @@ class SampleInfo
 
     private:
     ReadData* dataReaded;
-    std::vector<Sample> info;
+    std::vector<ConfigData> userData;
 };
 
 #endif //SAMPLEINFO_HPP

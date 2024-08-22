@@ -15,8 +15,8 @@ class UnitCellInfo
     void setValue();
 
     private:
-    ReadData* data;
-    std::vector<Element> elementInfo;
+    ReadData* cellData;
+    std::vector<ElementData> elementInfo;
 };
 
 

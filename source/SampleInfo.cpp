@@ -1,8 +1,8 @@
 #include "SampleInfo.hpp"
 
-SampleInfo::SampleInfo(ReadData* data)
+SampleInfo::SampleInfo(ReadData* dataValues)
 {
-    dataReaded = data;
+    dataReaded = dataValues;
 }
 
 SampleInfo::~SampleInfo()
@@ -12,18 +12,18 @@ SampleInfo::~SampleInfo()
 
 void SampleInfo::setValue()
 {
-    info = dataReaded->getSampleValue();
+    userData = dataReaded->getSampleValue();
 }
 
 double SampleInfo::getSampleThickness()
 {
-    double Lz = info[0].zLength;
-    return Lz;
+    double thickness = userData[0].zLength;
+    return thickness;
 }
 
 double SampleInfo::sampleArea()
 {
-    double area = info[0].xLength * info[0].yLength;
+    double area = userData[0].xLength * userData[0].yLength;
     return area;
 }
 

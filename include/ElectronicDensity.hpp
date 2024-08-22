@@ -6,15 +6,15 @@
 class ElectronicDensity
 {
     public:
-    ElectronicDensity(SampleInfo* value);
+    ElectronicDensity(SampleInfo* sampleValue);
     ~ElectronicDensity();
     double fermiValue(double energy);
-    double density(double energy, double P);
-    double deltaKz();
+    double densityOfStates(double energy, double numOfSubbands);
+    double deltaZWaveVector();
 
     private:
-    double thickness;
-    SampleInfo* results;
+    double thickness = 0;
+    SampleInfo* sampleResults;
 };
 
 #endif //ELECTRONICDENSITY_HPP

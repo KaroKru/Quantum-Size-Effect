@@ -5,9 +5,9 @@
 #include <vector>
 #include <string>
 
-struct Element
+struct ElementData
 {
-    std::string element;
+    std::string elementSymbol;
     int atomicNumber;
     std::string unitCellType;
     double xCrystalLength;
@@ -16,7 +16,7 @@ struct Element
     int electronNumber;
 };
 
-struct Sample
+struct ConfigData
 {
     std::string element;
     double xLength;
@@ -42,13 +42,13 @@ class ReadData
     ~ReadData();
 
     void readUserConfig();
-    void readDb();
-    std::vector<Element> getCellValue();
-    std::vector<Sample> getSampleValue();
+    void readCellValues();
+    std::vector<ElementData> getCellValue();
+    std::vector<ConfigData> getSampleValue();
 
     private:
-    std::vector<Element> unitCell;
-    std::vector<Sample> sample;
+    std::vector<ElementData> unitCell;
+    std::vector<ConfigData> sample;
 };
 
 #endif //READDATA_HPP
