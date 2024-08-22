@@ -14,17 +14,17 @@ class ResultCalculation
     ResultCalculation(UnitCellInfo* cellInfo, SampleInfo* sampleInfo);
     ~ResultCalculation();
 
-    double deltaKz(double L);
-    double sum(double P);
-    double fermiSphere(double P, double L);
-    double DOSFermi(double P, double L);
-    double sum2(double P);
-    double totalEnergy(double P, double kF, double L);
-    double totalEnergyOverElectronNumber(double P, double kF, double L);
+    double deltaZWaveVector(double thickness);
+    double sum(double subbandsNum);
+    double fermiSphere(double subbandsNum, double thickness);
+    double densityOfStates(double subbandsNum, double thickness);
+    double sum2(double subbandsNum);
+    double totalEnergy(double P, double fermiWaveVector, double thickness);
+    double totalEnergyOverElectronNumber(double subbandsNum, double fermiWaveVector, double thickness);
 
     private:
-    UnitCellInfo* cell;
-    SampleInfo* sample;
+    UnitCellInfo* cellResults;
+    SampleInfo* sampleResults;
 };
 
 #endif //RESULTCALCULATION_HPP

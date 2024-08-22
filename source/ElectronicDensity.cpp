@@ -1,10 +1,10 @@
 #include "ElectronicDensity.hpp"
 #include <cmath>
 
-ElectronicDensity::ElectronicDensity(SampleInfo* value)
+ElectronicDensity::ElectronicDensity(SampleInfo* sampleValue)
 {
-    results = value;
-    thickness = results->getSampleThickness();
+    sampleResults = sampleValue;
+    thickness = sampleResults->getSampleThickness();
 }
 
 ElectronicDensity::~ElectronicDensity()
@@ -14,18 +14,18 @@ ElectronicDensity::~ElectronicDensity()
 
 double ElectronicDensity::fermiValue(double energy)
 {
-    double kF = sqrt((2 * MASS *energy) / (pow(PLANCK_VALUE, 2)));
-    return kF;
+    double fermiWaveVector = sqrt((2 * MASS *energy) / (pow(PLANCK_VALUE, 2)));
+    return fermiWaveVector;
 }
 
-double ElectronicDensity::density(double energy, double P)
+double ElectronicDensity::densityOfStates(double energy, double numOfSubbands)
 {
-    double dos = (MASS / (M_PI * (pow(PLANCK_VALUE, 2)) * thickness)) * P;
-    return dos;
+    double statesDensity = (MASS / (M_PI * (pow(PLANCK_VALUE, 2)) * thickness)) * numOfSubbands;
+    return statesDensity;
 }
 
-double ElectronicDensity::deltaKz()
+double ElectronicDensity::deltaZWaveVector()
 {
-    double kZ = M_PI / thickness;
-    return kZ;
+    double zWaveVector = M_PI / thickness;
+    return zWaveVector;
 }

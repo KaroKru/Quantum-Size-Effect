@@ -3,8 +3,8 @@
 
 ResultCalculation::ResultCalculation(UnitCellInfo* cellInfo, SampleInfo* sampleInfo)
 {
-    cell = cellInfo;
-    sample = sampleInfo;
+    cellResults = cellInfo;
+    sampleResults = sampleInfo;
 }
 
 ResultCalculation::~ResultCalculation()
@@ -12,45 +12,46 @@ ResultCalculation::~ResultCalculation()
 
 }
 
-double ResultCalculation::deltaKz(double L)
+double ResultCalculation::deltaZWaveVector(double thickness)
 {
-    double kZ = M_PI / L;
-    return kZ;
+    double ZWaveVector = M_PI / thickness;
+    return ZWaveVector;
 }
 
-double ResultCalculation::sum(double P)
+double ResultCalculation::sum(double subbandsNum)
 {
-    double s = P * (P + 1) * (2 * P + 1) / 6;
-    return s;
+    double sumResult = subbandsNum * (subbandsNum + 1) * (2 * subbandsNum + 1) / 6;
+    return sumResult;
 }
 
-double ResultCalculation::fermiSphere(double P, double L)
+double ResultCalculation::fermiSphere(double subbandsNum, double thickness)
 {
-    const int eDensity = cell->electronDensity();
-    double kF = 1 / P * (2 * M_PI * L * eDensity + sum(P) * pow((M_PI/L), 2));
-    return kF;
+    const int eDensity = cellResults->electronDensity();
+
+    double fermiVector = 1 / subbandsNum * (2 * M_PI * thickness * eDensity + sum(subbandsNum) * pow((M_PI/thickness), 2));
+    return fermiVector;
 }
 
-double ResultCalculation::DOSFermi(double P, double L)
+double ResultCalculation::densityOfStates(double subbandsNum, double thickness)
 {
-    double dos = (MASS * P) / (M_PI * pow(PLANCK_VALUE, 2) * L);
-    return dos;
+    double statesDensity = (MASS * subbandsNum) / (M_PI * pow(PLANCK_VALUE, 2) * thickness);
+    return statesDensity;
 }
 
-double ResultCalculation::sum2(double P)
+double ResultCalculation::sum2(double subbandsNum)
 {
-    double s2 = P * (P + 1) * (2 * P + 1) * (3 * pow(P, 2) + 3 * P - 1) / 30;
-    return s2;
+    double sumVal = subbandsNum * (subbandsNum + 1) * (2 * subbandsNum + 1) * (3 * pow(subbandsNum, 2) + 3 * subbandsNum - 1) / 30;
+    return sumVal;
 }
 
-double ResultCalculation::totalEnergy(double P, double kF, double L)
+double ResultCalculation::totalEnergy(double subbandsNum, double fermiWaveVector, double thickness)
 {
-    double value = ((pow(PLANCK_VALUE, 2))/(8 * M_PI * MASS * L)) * (P * pow(kF, 4) - sum2(P) * (pow((M_PI / L),4)));
-    return value;
+    double energyValue = ((pow(PLANCK_VALUE, 2))/(8 * M_PI * MASS * thickness)) * (subbandsNum * pow(fermiWaveVector, 4) - sum2(subbandsNum) * (pow((M_PI / thickness),4)));
+    return energyValue;
 }
 
-double ResultCalculation::totalEnergyOverElectronNumber(double P, double kF, double L) 
+double ResultCalculation::totalEnergyOverElectronNumber(double subbandsNum, double fermiWaveVector, double thickness) 
 {
-	double val = totalEnergy(P, kF, L) / cell->electronDensity();
-    return val;
+	double electronEnergy = totalEnergy(subbandsNum, fermiWaveVector, thickness) / cellResults->electronDensity();
+    return electronEnergy;
 }

@@ -3,10 +3,10 @@
 #include <cmath>
 #include <fstream>
 
-SphereCalculation::SphereCalculation(SampleInfo* sampleInf, ResultCalculation* calculation)
+SphereCalculation::SphereCalculation(SampleInfo* sampleInf, ResultCalculation* calculationValues)
 {
-    info = sampleInf;
-    results = calculation;
+    sampleResult = sampleInf;
+    calculationResults = calculationValues;
 }
 
 SphereCalculation::~SphereCalculation()
@@ -16,33 +16,37 @@ SphereCalculation::~SphereCalculation()
 
 void SphereCalculation::calculation()
 { 
-    SavedData savedInfo;
-    int maxNr = 2802;
+    SampleData sampleDataInfo;
+
+    int maxStepsNum = 2802;
     double thicknessStep = 0.001;
     double energyStep = 0.01;
-    double p = 1;
-    double P = 0;
-    double L = info->getSampleThickness();
+    double pInitialValue = 1;
+    double numOfP = 0;
+    double thickness = sampleResult->getSampleThickness();
 
-    for (int i = 1; i < maxNr ; i++)
+    for (int i = 1; i < maxStepsNum; i++)
     {
-        double kF = std::sqrt(results->fermiSphere(p, L));
-        P = kF / results->deltaKz(L);
+        double fermiWaveVector = std::sqrt(calculationResults->fermiSphere(
+            pInitialValue, thickness));
+        numOfP = fermiWaveVector / calculationResults->deltaZWaveVector(thickness);
 
-        if (p < int(P))
+        if (pInitialValue < static_cast<int>(numOfP))
         {
-            p += 1;
+            pInitialValue += 1;
         }
 
-        savedInfo.Lz = L;
-        savedInfo.kF = kF;
-        savedInfo.numP = p;
-        savedInfo.dos = results->DOSFermi(p, L);
-        savedInfo.eT = results->totalEnergyOverElectronNumber(p, kF, L);
+        sampleDataInfo.samThickness = thickness;
+        sampleDataInfo.samWaveVec = fermiWaveVector;
+        sampleDataInfo.samNumOfSubbands = pInitialValue;
+        sampleDataInfo.samStatestDensity = calculationResults->densityOfStates(
+            pInitialValue, thickness);
+        sampleDataInfo.samElectEnergy = calculationResults->totalEnergyOverElectronNumber(
+            pInitialValue, fermiWaveVector, thickness);
         
-        data.push_back(savedInfo);
+        data.push_back(sampleDataInfo);
 
-        L += thicknessStep;
+        thickness += thicknessStep;
     }
 }
 
@@ -57,9 +61,11 @@ void SphereCalculation::saved()
     }
     else
     {
-        for (const auto &i: data)
+        for (const auto &value: data)
         {
-            dataFile << i.Lz << "," << i.kF << "," << i.numP << "," << i.dos << "," << i.eT << std::endl;
+            dataFile << value.samThickness << "," << value.samWaveVec << "," << 
+            value.samNumOfSubbands << "," << value.samStatestDensity << "," << 
+            value.samElectEnergy << std::endl;
         }
         std::cerr << "Saving data" << std::endl;
         dataFile.close();

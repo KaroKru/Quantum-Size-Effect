@@ -2,6 +2,7 @@
 #define ELECTRONICCALCULATION_HPP
 
 #include "ElectronicDensity.hpp"
+#include "CalculationInt.hpp"
 #include <vector>
 
 struct ElectronicData
@@ -10,17 +11,17 @@ struct ElectronicData
     double energy;
 };
 
-class ElectronicCalculation
+class ElectronicCalculation : public CalculationInt
 {
     public:
-    ElectronicCalculation(ElectronicDensity* density);
+    ElectronicCalculation(ElectronicDensity* electronicDensity);
     ~ElectronicCalculation();
 
-    void calculation();
-    void saved();
+    void calculation() override;
+    void saved() override;
 
     private:
-    ElectronicDensity* eDensity;
+    ElectronicDensity* densityResult;
     std::vector<ElectronicData> electronicInfo;
 };
 

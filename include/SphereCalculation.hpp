@@ -3,30 +3,31 @@
 
 #include "SampleInfo.hpp"
 #include "ResultCalculation.hpp"
+#include "CalculationInt.hpp"
 #include <vector>
 
-struct SavedData
+struct SampleData
 {
-    double Lz;
-    double kF;
-    double numP;
-    double dos;
-    double eT;
+    double samThickness;
+    double samWaveVec;
+    double samNumOfSubbands;
+    double samStatestDensity;
+    double samElectEnergy;
 };
 
-class SphereCalculation
+class SphereCalculation : public CalculationInt
 {
     public:
-    SphereCalculation(SampleInfo* sampleInf, ResultCalculation* calculation);
+    SphereCalculation(SampleInfo* sampleInf, ResultCalculation* calculationValues);
     ~SphereCalculation();
 
-    void calculation();
-    void saved();
+    void calculation() override;
+    void saved() override;
 
     private:
-    SampleInfo* info;
-    ResultCalculation* results;
-    std::vector<SavedData> data;
+    SampleInfo* sampleResult;
+    ResultCalculation* calculationResults;
+    std::vector<SampleData> data;
 };
 
 

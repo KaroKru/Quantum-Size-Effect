@@ -4,7 +4,7 @@
 
 UnitCellInfo::UnitCellInfo(ReadData* readed)
 {
-    data = readed;
+    cellData = readed;
 }
 
 UnitCellInfo::~UnitCellInfo()
@@ -14,7 +14,7 @@ UnitCellInfo::~UnitCellInfo()
 
 void UnitCellInfo::setValue()
 {
-    elementInfo = data->getCellValue();
+    elementInfo = cellData->getCellValue();
 }
 
 double UnitCellInfo::cellVolume()
@@ -41,9 +41,9 @@ double UnitCellInfo::cellVolume()
 
 int UnitCellInfo::electronDensity()
 {
-    double volume = cellVolume();
+    double sampleVolume = cellVolume();
 
-    int density = static_cast<int>(elementInfo[0].electronNumber / volume);
+    int density = static_cast<int>(elementInfo[0].electronNumber / sampleVolume);
 
     return density;
 }

@@ -10,7 +10,7 @@ int main()
 {
 	ReadData* read = new ReadData();
 	read->readUserConfig();
-	read->readDb();
+	read->readCellValues();
 
 	SampleInfo sample(read);
 	sample.setValue();

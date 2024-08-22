@@ -2,9 +2,9 @@
 #include <iostream>
 #include <fstream>
 
-ElectronicCalculation::ElectronicCalculation(ElectronicDensity* density)
+ElectronicCalculation::ElectronicCalculation(ElectronicDensity* electronicDensity)
 {
-    eDensity = density;
+    densityResult = electronicDensity;
 }
 
 ElectronicCalculation::~ElectronicCalculation()
@@ -15,6 +15,7 @@ ElectronicCalculation::~ElectronicCalculation()
 void ElectronicCalculation::calculation()
 {
     ElectronicData electronicDataInfo;
+
     int numSteps = 2802;
     double energyStep = 0.01;
     double pInitialValue = 1;
@@ -23,15 +24,15 @@ void ElectronicCalculation::calculation()
 
     for (int i = 1; i < numSteps ; i++)
     {
-        double fermiWaveVector = eDensity->fermiValue(energyValue);
-        numOfP = fermiWaveVector / eDensity->deltaKz();
+        double fermiWaveVector = densityResult->fermiValue(energyValue);
+        numOfP = fermiWaveVector / densityResult->deltaZWaveVector();
 
         if (pInitialValue < static_cast<int>(numOfP))
         {
             pInitialValue += 1;
         }
 
-        electronicDataInfo.density = eDensity->density(energyValue, pInitialValue);
+        electronicDataInfo.density = densityResult->densityOfStates(energyValue, pInitialValue);
         electronicDataInfo.energy = energyValue;
         
         electronicInfo.push_back(electronicDataInfo);
