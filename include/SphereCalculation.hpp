@@ -18,7 +18,17 @@ struct SampleData
 class SphereCalculation : public CalculationInt
 {
     public:
+    //constructor
     SphereCalculation(SampleInfo* sampleInf, ResultCalculation* calculationValues);
+    //copy constructor
+    SphereCalculation(const SphereCalculation &oth) = delete;
+    //move constructor
+    SphereCalculation(SphereCalculation &&oth) = delete;
+    //copy operator 
+    SphereCalculation& operator=(const SphereCalculation &oth) = delete;
+    //move operator
+    SphereCalculation& operator=(SphereCalculation &&oth) = delete;
+    //destructor
     ~SphereCalculation();
 
     void calculation() override;

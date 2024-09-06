@@ -32,7 +32,7 @@ add_library(qse
     source/ElectronicCalculation.cpp
 )
 
-add_executable(run WIN32
+add_executable(run 
     source/main.cpp
 )
 
@@ -46,14 +46,18 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(googletest)
 
-#enable_testing()
+enable_testing()
 
-#add_executable(qseTest
-#)
+include_directories(tests/include)
 
-#target_link_libraries(qseTest gtest gmock gtest_main qse)
 
-#add_test(NAME qseTest COMMAND qseTest --gtest_output=xml:report.xml)
+add_executable(qseTest
+    tests/src/ElectronicCalculationTest.cpp
+)
+
+target_link_libraries(qseTest gtest gmock gtest_main qse)
+
+add_test(NAME qseTest COMMAND qseTest --gtest_output=xml:report.xml)
 
 add_custom_target(run-clang-tidy
     COMMAND ${CMAKE_COMMAND} -E echo "Running clang-tidy"

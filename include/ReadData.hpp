@@ -30,13 +30,13 @@ class ReadData
     //constructor
     ReadData();
     //copy constructor
-    ReadData(const ReadData &oth);
+    ReadData(const ReadData &oth) = delete;
     //move constructor
-    ReadData(ReadData &&oth);
+    ReadData(ReadData &&oth) = delete;
     //copy operator
-    ReadData& operator=(const ReadData& oth);
+    ReadData& operator=(const ReadData& oth) = delete;
     //move operator
-    ReadData& operator=(ReadData&& oth);
+    ReadData& operator=(ReadData&& oth) = delete;
 
     //destructor
     ~ReadData();

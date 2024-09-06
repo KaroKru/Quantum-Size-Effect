@@ -4,6 +4,7 @@
 #include "ElectronicDensity.hpp"
 #include "CalculationInt.hpp"
 #include <vector>
+#include <memory>
 
 struct ElectronicData
 {
@@ -14,14 +15,24 @@ struct ElectronicData
 class ElectronicCalculation : public CalculationInt
 {
     public:
-    ElectronicCalculation(ElectronicDensity* electronicDensity);
+    //constructor
+    ElectronicCalculation(std::unique_ptr<ElectronicDensity> electronicDensity);
+    //copy constructor
+    ElectronicCalculation(const ElectronicCalculation &oth) = delete;
+    //move constructor
+    ElectronicCalculation(ElectronicCalculation &&oth) = delete;
+    //copy operator
+    ElectronicCalculation& operator=(const ElectronicCalculation& oth) = delete;
+    //move operator 
+    ElectronicCalculation& operator=(ElectronicCalculation&& oth) = delete;
+    //destructor
     ~ElectronicCalculation();
-
+    
     void calculation() override;
     void saved() override;
 
     private:
-    ElectronicDensity* densityResult;
+    std::unique_ptr<ElectronicDensity> densityResult;
     std::vector<ElectronicData> electronicInfo;
 };
 

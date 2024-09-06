@@ -7,7 +7,17 @@
 class SampleInfo
 {
     public:
+    //constructor
     SampleInfo(ReadData* dataValues);
+    //copy constructor
+    SampleInfo(const ReadData &oth) = delete;
+    //move constructor 
+    SampleInfo(ReadData &&oth) = delete;
+    //copy operator
+    SampleInfo& operator=(const SampleInfo &oth) = delete;
+    //move operator
+    SampleInfo& operator=(SampleInfo &&oth) = delete;
+    //destructor
     ~SampleInfo();
 
     double sampleArea();

@@ -2,9 +2,9 @@
 #include <iostream>
 #include <fstream>
 
-ElectronicCalculation::ElectronicCalculation(ElectronicDensity* electronicDensity)
+ElectronicCalculation::ElectronicCalculation(std::unique_ptr<ElectronicDensity> electronicDensity) : densityResult(std::move(electronicDensity))
 {
-    densityResult = electronicDensity;
+
 }
 
 ElectronicCalculation::~ElectronicCalculation()
@@ -16,8 +16,8 @@ void ElectronicCalculation::calculation()
 {
     ElectronicData electronicDataInfo;
 
-    int numSteps = 2802;
-    double energyStep = 0.01;
+    const int numSteps = 2802;
+    const double energyStep = 0.01;
     double pInitialValue = 1;
     double numOfP = 0;
     double energyValue = 0;

@@ -11,7 +11,17 @@
 class ResultCalculation
 {
     public:
+    //constructor
     ResultCalculation(UnitCellInfo* cellInfo, SampleInfo* sampleInfo);
+    //copy constructor
+    ResultCalculation(const ResultCalculation &oth) = delete;
+    //move constructor
+    ResultCalculation(ResultCalculation &&oth) = delete;
+    //copy operator
+    ResultCalculation& operator=(const ResultCalculation &oth) = delete;
+    //move operator
+    ResultCalculation& operator=(ResultCalculation &&oth) = delete; 
+    //destructor
     ~ResultCalculation();
 
     double deltaZWaveVector(double thickness);

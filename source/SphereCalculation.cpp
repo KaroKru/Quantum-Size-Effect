@@ -18,9 +18,9 @@ void SphereCalculation::calculation()
 { 
     SampleData sampleDataInfo;
 
-    int maxStepsNum = 2802;
-    double thicknessStep = 0.001;
-    double energyStep = 0.01;
+    const int maxStepsNum = 2802;
+    const double thicknessStep = 0.001;
+    const double energyStep = 0.01;
     double pInitialValue = 1;
     double numOfP = 0;
     double thickness = sampleResult->getSampleThickness();

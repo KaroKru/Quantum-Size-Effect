@@ -5,36 +5,35 @@
 #include "ResultCalculation.hpp"
 #include "ElectronicDensity.hpp"
 #include "ElectronicCalculation.hpp"
+#include <iostream>
+#include <memory>
 
 int main()
 {
-	ReadData* read = new ReadData();
+	auto read = std::make_unique<ReadData>();
 	read->readUserConfig();
 	read->readCellValues();
 
-	SampleInfo sample(read);
-	sample.setValue();
-	sample.sampleArea();
-	//sample.sampleVolume();
+	auto sample = std::make_unique<SampleInfo>(read.get());
+	sample->setValue();
+	sample->sampleArea();
 
-	UnitCellInfo cell(read);
-	cell.setValue();
-	cell.cellVolume();
-	cell.electronDensity();
+	auto cell = std::make_unique<UnitCellInfo>(read.get());
+	cell->setValue();
+	cell->cellVolume();
+	cell->electronDensity();
 
-	ResultCalculation resultCalculation(&cell, &sample);
+	ResultCalculation resultCalculation(cell.get(), sample.get());
 
-	SphereCalculation sphere(&sample, &resultCalculation);
+	SphereCalculation sphere(sample.get(), &resultCalculation);
 	sphere.calculation();
 	sphere.saved();
 
-	ElectronicDensity density(&sample);
+	auto density = std::make_unique<ElectronicDensity>(sample.get());
 
-	ElectronicCalculation electronic(&density);
+	ElectronicCalculation electronic(std::move(density));
 	electronic.calculation();
 	electronic.saved();
-
-	delete read;
 
 	return 0;
 }
