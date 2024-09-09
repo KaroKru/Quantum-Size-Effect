@@ -2,8 +2,8 @@
 #define READDATA_HPP
 
 #include <iostream>
-#include <vector>
 #include <string>
+#include <vector>
 
 struct ElementData
 {
@@ -21,23 +21,23 @@ struct ConfigData
     std::string element;
     double xLength = 0;
     double yLength = 0;
-    double zLength = 0; //sample thickness
+    double zLength = 0; // sample thickness
 };
 
 class ReadData
 {
-    public:
-    //constructor
+  public:
+    // constructor
     ReadData();
-    //copy constructor
-    ReadData(const ReadData &oth) = delete;
-    //move constructor
-    ReadData(ReadData &&oth) = delete;
-    //copy operator
-    ReadData &operator=(const ReadData &oth) = delete;
-    //move operator
-    ReadData &operator=(ReadData &&oth) = delete;
-    //destructor
+    // copy constructor
+    ReadData(const ReadData& oth) = delete;
+    // move constructor
+    ReadData(ReadData&& oth) = delete;
+    // copy operator
+    ReadData& operator=(const ReadData& oth) = delete;
+    // move operator
+    ReadData& operator=(ReadData&& oth) = delete;
+    // destructor
     ~ReadData();
 
     void readUserConfig();
@@ -45,9 +45,9 @@ class ReadData
     std::vector<ElementData> getCellValue();
     std::vector<ConfigData> getSampleValue();
 
-    private:
+  private:
     std::vector<ElementData> unitCell;
     std::vector<ConfigData> sample;
 };
 
-#endif //READDATA_HPP
+#endif // READDATA_HPP

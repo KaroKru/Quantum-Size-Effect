@@ -3,7 +3,7 @@
 
 class CalculationInt
 {
-    public:
+  public:
     CalculationInt() = default;
     virtual ~CalculationInt() = default;
 
@@ -11,4 +11,4 @@ class CalculationInt
     virtual void saved() = 0;
 };
 
-#endif //CALCULATIONINT_HPP
+#endif // CALCULATIONINT_HPP

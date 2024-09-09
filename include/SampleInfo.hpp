@@ -6,27 +6,27 @@
 
 class SampleInfo
 {
-    public:
-    //constructor
+  public:
+    // constructor
     SampleInfo(ReadData* dataValues);
-    //copy constructor
-    SampleInfo(const SampleInfo &oth) = delete;
-    //move constructor 
-    SampleInfo(SampleInfo &&oth) = delete;
-    //copy operator
-    SampleInfo& operator=(const SampleInfo &oth) = delete;
-    //move operator
-    SampleInfo& operator=(SampleInfo &&oth) = delete;
-    //destructor
+    // copy constructor
+    SampleInfo(const SampleInfo& oth) = delete;
+    // move constructor
+    SampleInfo(SampleInfo&& oth) = delete;
+    // copy operator
+    SampleInfo& operator=(const SampleInfo& oth) = delete;
+    // move operator
+    SampleInfo& operator=(SampleInfo&& oth) = delete;
+    // destructor
     ~SampleInfo();
 
     double sampleArea();
     void setValue();
     double getSampleThickness();
 
-    private:
+  private:
     ReadData* dataReaded;
     std::vector<ConfigData> userData;
 };
 
-#endif //SAMPLEINFO_HPP
+#endif // SAMPLEINFO_HPP

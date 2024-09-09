@@ -1,9 +1,9 @@
 #ifndef SPHERECALCULATION_HPP
 #define SPHERECALCULATION_HPP
 
-#include "SampleInfo.hpp"
-#include "ResultCalculation.hpp"
 #include "CalculationInt.hpp"
+#include "ResultCalculation.hpp"
+#include "SampleInfo.hpp"
 #include <vector>
 
 struct SampleData
@@ -17,28 +17,29 @@ struct SampleData
 
 class SphereCalculation : public CalculationInt
 {
-    public:
-    //constructor
-    SphereCalculation(SampleInfo* sampleInf, ResultCalculation* calculationValues);
-    //copy constructor
-    SphereCalculation(const SphereCalculation &oth) = delete;
-    //move constructor
-    SphereCalculation(SphereCalculation &&oth) = delete;
-    //copy operator 
-    SphereCalculation& operator=(const SphereCalculation &oth) = delete;
-    //move operator
-    SphereCalculation& operator=(SphereCalculation &&oth) = delete;
-    //destructor
+  public:
+    // constructor
+    SphereCalculation(SampleInfo* sampleInf,
+                      ResultCalculation* calculationValues);
+    // copy constructor
+    SphereCalculation(const SphereCalculation& oth) = delete;
+    // move constructor
+    SphereCalculation(SphereCalculation&& oth) = delete;
+    // copy operator
+    SphereCalculation&
+    operator=(const SphereCalculation& oth) = delete;
+    // move operator
+    SphereCalculation& operator=(SphereCalculation&& oth) = delete;
+    // destructor
     ~SphereCalculation() override;
 
     void calculation() override;
     void saved() override;
 
-    private:
+  private:
     SampleInfo* sampleResult;
     ResultCalculation* calculationResults;
     std::vector<SampleData> data;
 };
 
-
-#endif //SPHERECALCULATION_HPP
+#endif // SPHERECALCULATION_HPP

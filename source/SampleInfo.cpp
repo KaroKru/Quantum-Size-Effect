@@ -2,12 +2,10 @@
 
 SampleInfo::SampleInfo(ReadData* dataValues) : dataReaded(dataValues)
 {
-
 }
 
 SampleInfo::~SampleInfo()
 {
-
 }
 
 void SampleInfo::setValue()
@@ -26,4 +24,3 @@ double SampleInfo::sampleArea()
     double area = userData[0].xLength * userData[0].yLength;
     return area;
 }
-

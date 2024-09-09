@@ -6,28 +6,27 @@
 
 class UnitCellInfo
 {
-    public:
-    //constructor
+  public:
+    // constructor
     UnitCellInfo(ReadData* readed);
-    //copy constructor
-    UnitCellInfo(const UnitCellInfo &oth) = delete;
-    //move constructor
-    UnitCellInfo(UnitCellInfo &&oth) = delete;
-    //copy operator
-    UnitCellInfo& operator=(const UnitCellInfo &oth) = delete;
-    //move operator
-    UnitCellInfo& operator=(UnitCellInfo &&oth) = delete;
-    //destructor
+    // copy constructor
+    UnitCellInfo(const UnitCellInfo& oth) = delete;
+    // move constructor
+    UnitCellInfo(UnitCellInfo&& oth) = delete;
+    // copy operator
+    UnitCellInfo& operator=(const UnitCellInfo& oth) = delete;
+    // move operator
+    UnitCellInfo& operator=(UnitCellInfo&& oth) = delete;
+    // destructor
     ~UnitCellInfo();
 
     double cellVolume();
     int electronDensity();
     void setValue();
 
-    private:
+  private:
     ReadData* cellData;
     std::vector<ElementData> elementInfo;
 };
 
-
-#endif //UNITCELLINFO_HPP
+#endif // UNITCELLINFO_HPP

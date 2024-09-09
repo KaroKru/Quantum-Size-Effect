@@ -2,25 +2,28 @@
 #include <cmath>
 
 ElectronicDensity::ElectronicDensity(SampleInfo* sampleValue)
-: sampleResults(sampleValue)
+    : sampleResults(sampleValue)
 {
     thickness = sampleResults->getSampleThickness();
 }
 
 ElectronicDensity::~ElectronicDensity()
 {
-
 }
 
 double ElectronicDensity::fermiValue(double energy)
 {
-    double fermiWaveVector = sqrt((2 * MASS *energy) / (pow(PLANCK_VALUE, 2)));
+    double fermiWaveVector =
+        sqrt((2 * MASS * energy) / (pow(PLANCK_VALUE, 2)));
     return fermiWaveVector;
 }
 
-double ElectronicDensity::densityOfStates(double energy, double numOfSubbands)
+double ElectronicDensity::densityOfStates(double energy,
+                                          double numOfSubbands)
 {
-    double statesDensity = (MASS / (M_PI * (pow(PLANCK_VALUE, 2)) * thickness)) * numOfSubbands;
+    double statesDensity =
+        (MASS / (M_PI * (pow(PLANCK_VALUE, 2)) * thickness)) *
+        numOfSubbands;
     return statesDensity;
 }
 

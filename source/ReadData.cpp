@@ -1,15 +1,13 @@
 #include "ReadData.hpp"
 #include <fstream>
-#include <sstream> 
+#include <sstream>
 
 ReadData::ReadData()
 {
-   
 }
 
 ReadData::~ReadData()
 {
-
 }
 
 void ReadData::readUserConfig()
@@ -18,19 +16,20 @@ void ReadData::readUserConfig()
 
     if (!sampleValues.is_open())
     {
-        throw std::runtime_error("Problem with opening the user configuration file");
+        throw std::runtime_error(
+            "Problem with opening the user configuration file");
     }
-    
+
     std::string line;
     int lineNumber = 0;
 
-    while (getline(sampleValues, line)) 
+    while (getline(sampleValues, line))
     {
         std::stringstream readConfig(line);
         ConfigData sampleData;
 
         std::getline(readConfig, sampleData.element, ',');
-        readConfig>> sampleData.xLength;
+        readConfig >> sampleData.xLength;
         readConfig.ignore(1);
         readConfig >> sampleData.yLength;
         readConfig.ignore(1);
@@ -44,27 +43,29 @@ void ReadData::readUserConfig()
 
 void ReadData::readCellValues()
 {
-    std::ifstream cellValues("../source/configuration/unitCellInfo.txt");
+    std::ifstream cellValues(
+        "../source/configuration/unitCellInfo.txt");
 
     if (!cellValues.is_open())
     {
-        throw std::runtime_error("Problem with opening unit cell information file");
+        throw std::runtime_error(
+            "Problem with opening unit cell information file");
     }
 
     std::string line;
     int lineNumber = 0;
 
-    while (getline(cellValues, line)) 
+    while (getline(cellValues, line))
     {
-       std::string elementName = line.substr(0, line.find(','));
+        std::string elementName = line.substr(0, line.find(','));
 
-       if (elementName == sample[0].element)
-       {
+        if (elementName == sample[0].element)
+        {
             std::stringstream readData(line);
             ElementData data;
 
             std::getline(readData, data.elementSymbol, ',');
-            readData>> data.atomicNumber;
+            readData >> data.atomicNumber;
             readData.ignore(1);
             std::getline(readData, data.unitCellType, ',');
             readData >> data.xCrystalLength;
@@ -76,7 +77,7 @@ void ReadData::readCellValues()
             readData >> data.electronNumber;
 
             unitCell.push_back(data);
-       }
+        }
     }
 
     cellValues.close();

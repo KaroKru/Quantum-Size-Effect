@@ -1,15 +1,15 @@
 #include "ElectronicCalculation.hpp"
-#include <iostream>
 #include <fstream>
+#include <iostream>
 
-ElectronicCalculation::ElectronicCalculation(std::unique_ptr<ElectronicDensity> electronicDensity) : densityResult(std::move(electronicDensity))
+ElectronicCalculation::ElectronicCalculation(
+    std::unique_ptr<ElectronicDensity> electronicDensity)
+    : densityResult(std::move(electronicDensity))
 {
-
 }
 
 ElectronicCalculation::~ElectronicCalculation()
 {
-    
 }
 
 void ElectronicCalculation::calculation()
@@ -22,9 +22,10 @@ void ElectronicCalculation::calculation()
     double numOfP = 0;
     double energyValue = 0;
 
-    for (int i = 1; i < numSteps ; i++)
+    for (int i = 1; i < numSteps; i++)
     {
-        double fermiWaveVector = densityResult->fermiValue(energyValue);
+        double fermiWaveVector =
+            densityResult->fermiValue(energyValue);
         numOfP = fermiWaveVector / densityResult->deltaZWaveVector();
 
         if (pInitialValue < static_cast<int>(numOfP))
@@ -32,9 +33,10 @@ void ElectronicCalculation::calculation()
             pInitialValue += 1;
         }
 
-        electronicDataInfo.density = densityResult->densityOfStates(energyValue, pInitialValue);
+        electronicDataInfo.density = densityResult->densityOfStates(
+            energyValue, pInitialValue);
         electronicDataInfo.energy = energyValue;
-        
+
         electronicInfo.push_back(electronicDataInfo);
 
         energyValue += energyStep;
@@ -50,8 +52,8 @@ void ElectronicCalculation::saved()
         std::cerr << "Problem with opening file\n";
         throw std::runtime_error("Problem with opening file");
     }
-    
-    for (const auto &value: electronicInfo)
+
+    for (const auto& value : electronicInfo)
     {
         dataFile << value.density << "," << value.energy << "\n";
     }

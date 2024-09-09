@@ -10,31 +10,37 @@
 
 class ResultCalculation
 {
-    public:
-    //constructor
+  public:
+    // constructor
     ResultCalculation(UnitCellInfo* cellInfo, SampleInfo* sampleInfo);
-    //copy constructor
-    ResultCalculation(const ResultCalculation &oth) = delete;
-    //move constructor
-    ResultCalculation(ResultCalculation &&oth) = delete;
-    //copy operator
-    ResultCalculation& operator=(const ResultCalculation &oth) = delete;
-    //move operator
-    ResultCalculation& operator=(ResultCalculation &&oth) = delete; 
-    //destructor
+    // copy constructor
+    ResultCalculation(const ResultCalculation& oth) = delete;
+    // move constructor
+    ResultCalculation(ResultCalculation&& oth) = delete;
+    // copy operator
+    ResultCalculation&
+    operator=(const ResultCalculation& oth) = delete;
+    // move operator
+    ResultCalculation& operator=(ResultCalculation&& oth) = delete;
+    // destructor
     ~ResultCalculation();
 
     static double deltaZWaveVector(double thickness);
     static double sum(double subbandsNum);
     double fermiSphere(double subbandsNum, double thickness);
-    static double densityOfStates(double subbandsNum, double thickness);
+    static double densityOfStates(double subbandsNum,
+                                  double thickness);
     static double sum2(double subbandsNum);
-    static double totalEnergy(double subbandsNum, double fermiWaveVector, double thickness);
-    double totalEnergyOverElectronNumber(double subbandsNum, double fermiWaveVector, double thickness);
+    static double totalEnergy(double subbandsNum,
+                              double fermiWaveVector,
+                              double thickness);
+    double totalEnergyOverElectronNumber(double subbandsNum,
+                                         double fermiWaveVector,
+                                         double thickness);
 
-    private:
+  private:
     UnitCellInfo* cellResults;
     SampleInfo* sampleResults;
 };
 
-#endif //RESULTCALCULATION_HPP
+#endif // RESULTCALCULATION_HPP
