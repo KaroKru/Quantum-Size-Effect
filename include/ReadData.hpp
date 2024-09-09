@@ -8,20 +8,20 @@
 struct ElementData
 {
     std::string elementSymbol;
-    int atomicNumber;
+    int atomicNumber = 0;
     std::string unitCellType;
-    double xCrystalLength;
-    double yCrystalLength;
-    double zCrystalLength;
-    int electronNumber;
+    double xCrystalLength = 0;
+    double yCrystalLength = 0;
+    double zCrystalLength = 0;
+    int electronNumber = 0;
 };
 
 struct ConfigData
 {
     std::string element;
-    double xLength;
-    double yLength;
-    double zLength; //sample thickness
+    double xLength = 0;
+    double yLength = 0;
+    double zLength = 0; //sample thickness
 };
 
 class ReadData
@@ -34,10 +34,9 @@ class ReadData
     //move constructor
     ReadData(ReadData &&oth) = delete;
     //copy operator
-    ReadData& operator=(const ReadData& oth) = delete;
+    ReadData &operator=(const ReadData &oth) = delete;
     //move operator
-    ReadData& operator=(ReadData&& oth) = delete;
-
+    ReadData &operator=(ReadData &&oth) = delete;
     //destructor
     ~ReadData();
 

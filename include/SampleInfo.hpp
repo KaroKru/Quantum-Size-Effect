@@ -10,9 +10,9 @@ class SampleInfo
     //constructor
     SampleInfo(ReadData* dataValues);
     //copy constructor
-    SampleInfo(const ReadData &oth) = delete;
+    SampleInfo(const SampleInfo &oth) = delete;
     //move constructor 
-    SampleInfo(ReadData &&oth) = delete;
+    SampleInfo(SampleInfo &&oth) = delete;
     //copy operator
     SampleInfo& operator=(const SampleInfo &oth) = delete;
     //move operator

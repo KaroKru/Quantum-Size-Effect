@@ -2,8 +2,8 @@
 #include <cmath>
 
 ElectronicDensity::ElectronicDensity(SampleInfo* sampleValue)
+: sampleResults(sampleValue)
 {
-    sampleResults = sampleValue;
     thickness = sampleResults->getSampleThickness();
 }
 

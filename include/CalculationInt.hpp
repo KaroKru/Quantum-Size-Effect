@@ -5,7 +5,7 @@ class CalculationInt
 {
     public:
     CalculationInt() = default;
-    ~CalculationInt() = default;
+    virtual ~CalculationInt() = default;
 
     virtual void calculation() = 0;
     virtual void saved() = 0;

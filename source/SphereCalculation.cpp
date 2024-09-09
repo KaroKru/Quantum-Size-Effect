@@ -3,10 +3,10 @@
 #include <cmath>
 #include <fstream>
 
-SphereCalculation::SphereCalculation(SampleInfo* sampleInf, ResultCalculation* calculationValues)
+SphereCalculation::SphereCalculation(SampleInfo* sampleInf, ResultCalculation* calculationValues) 
+: sampleResult(sampleInf), calculationResults(calculationValues)
 {
-    sampleResult = sampleInf;
-    calculationResults = calculationValues;
+    
 }
 
 SphereCalculation::~SphereCalculation()
@@ -29,7 +29,7 @@ void SphereCalculation::calculation()
     {
         double fermiWaveVector = std::sqrt(calculationResults->fermiSphere(
             pInitialValue, thickness));
-        numOfP = fermiWaveVector / calculationResults->deltaZWaveVector(thickness);
+        numOfP = fermiWaveVector / ResultCalculation::deltaZWaveVector(thickness);
 
         if (pInitialValue < static_cast<int>(numOfP))
         {
@@ -39,7 +39,7 @@ void SphereCalculation::calculation()
         sampleDataInfo.samThickness = thickness;
         sampleDataInfo.samWaveVec = fermiWaveVector;
         sampleDataInfo.samNumOfSubbands = pInitialValue;
-        sampleDataInfo.samStatestDensity = calculationResults->densityOfStates(
+        sampleDataInfo.samStatestDensity = ResultCalculation::densityOfStates(
             pInitialValue, thickness);
         sampleDataInfo.samElectEnergy = calculationResults->totalEnergyOverElectronNumber(
             pInitialValue, fermiWaveVector, thickness);
@@ -56,18 +56,16 @@ void SphereCalculation::saved()
 
     if (!dataFile.is_open())
     {
-        std::cerr << "Problem with opening file" << std::endl;
+        std::cerr << "Problem with opening file\n";
         throw std::runtime_error("Problem with opening file");
     }
-    else
+    
+    for (const auto &value: data)
     {
-        for (const auto &value: data)
-        {
-            dataFile << value.samThickness << "," << value.samWaveVec << "," << 
-            value.samNumOfSubbands << "," << value.samStatestDensity << "," << 
-            value.samElectEnergy << std::endl;
-        }
-        std::cerr << "Saving data" << std::endl;
-        dataFile.close();
+        dataFile << value.samThickness << "," << value.samWaveVec << "," << 
+        value.samNumOfSubbands << "," << value.samStatestDensity << "," << 
+        value.samElectEnergy << "\n";
     }
+    std::cerr << "Saving data\n";
+    dataFile.close();
 }

@@ -47,16 +47,14 @@ void ElectronicCalculation::saved()
 
     if (!dataFile.is_open())
     {
-        std::cerr << "Problem with opening file" << std::endl;
+        std::cerr << "Problem with opening file\n";
         throw std::runtime_error("Problem with opening file");
     }
-    else
+    
+    for (const auto &value: electronicInfo)
     {
-        for (const auto &value: electronicInfo)
-        {
-            dataFile << value.density << "," << value.energy << std::endl;
-        }
-        std::cerr << "Saving data" << std::endl;
-        dataFile.close();
+        dataFile << value.density << "," << value.energy << "\n";
     }
+    std::cerr << "Saving data\n";
+    dataFile.close();
 }

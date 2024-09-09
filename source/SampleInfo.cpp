@@ -1,8 +1,8 @@
 #include "SampleInfo.hpp"
 
-SampleInfo::SampleInfo(ReadData* dataValues)
+SampleInfo::SampleInfo(ReadData* dataValues) : dataReaded(dataValues)
 {
-    dataReaded = dataValues;
+
 }
 
 SampleInfo::~SampleInfo()

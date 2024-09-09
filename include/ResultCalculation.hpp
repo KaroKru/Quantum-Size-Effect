@@ -24,12 +24,12 @@ class ResultCalculation
     //destructor
     ~ResultCalculation();
 
-    double deltaZWaveVector(double thickness);
-    double sum(double subbandsNum);
+    static double deltaZWaveVector(double thickness);
+    static double sum(double subbandsNum);
     double fermiSphere(double subbandsNum, double thickness);
-    double densityOfStates(double subbandsNum, double thickness);
-    double sum2(double subbandsNum);
-    double totalEnergy(double P, double fermiWaveVector, double thickness);
+    static double densityOfStates(double subbandsNum, double thickness);
+    static double sum2(double subbandsNum);
+    static double totalEnergy(double subbandsNum, double fermiWaveVector, double thickness);
     double totalEnergyOverElectronNumber(double subbandsNum, double fermiWaveVector, double thickness);
 
     private:

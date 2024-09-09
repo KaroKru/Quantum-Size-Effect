@@ -19,7 +19,7 @@ class ElectronicDensity
     //destructor
     ~ElectronicDensity();
 
-    double fermiValue(double energy);
+    static double fermiValue(double energy);
     double densityOfStates(double energy, double numOfSubbands);
     double deltaZWaveVector();
 

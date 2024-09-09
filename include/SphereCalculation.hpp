@@ -8,11 +8,11 @@
 
 struct SampleData
 {
-    double samThickness;
-    double samWaveVec;
-    double samNumOfSubbands;
-    double samStatestDensity;
-    double samElectEnergy;
+    double samThickness = 0;
+    double samWaveVec = 0;
+    double samNumOfSubbands = 0;
+    double samStatestDensity = 0;
+    double samElectEnergy = 0;
 };
 
 class SphereCalculation : public CalculationInt
@@ -29,7 +29,7 @@ class SphereCalculation : public CalculationInt
     //move operator
     SphereCalculation& operator=(SphereCalculation &&oth) = delete;
     //destructor
-    ~SphereCalculation();
+    ~SphereCalculation() override;
 
     void calculation() override;
     void saved() override;

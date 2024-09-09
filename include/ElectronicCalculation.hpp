@@ -8,8 +8,8 @@
 
 struct ElectronicData
 {
-    double density;
-    double energy;
+    double density = 0;
+    double energy = 0;
 };
 
 class ElectronicCalculation : public CalculationInt
@@ -26,7 +26,7 @@ class ElectronicCalculation : public CalculationInt
     //move operator 
     ElectronicCalculation& operator=(ElectronicCalculation&& oth) = delete;
     //destructor
-    ~ElectronicCalculation();
+    ~ElectronicCalculation() override;
     
     void calculation() override;
     void saved() override;
