@@ -1,6 +1,6 @@
 ---
 Checks: >
-  -*,
+  *,
   bugprone-*,
   performance-*,
   readability-*,
@@ -12,7 +12,7 @@ Checks: >
   -misc-const-correctness
 
 
-HeaderFilterRegex: '.*'
+HeaderFilterRegex: '^(?!.*(_deps|external)).*'
 
 WarningsAsErrors: ''
 

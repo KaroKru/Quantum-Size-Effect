@@ -7,14 +7,34 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
-if (CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    find_program(CLANG_TIDY_EXE NAMES clang-tidy)
-    if(CLANG_TIDY_EXE)
-        set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXE};-extra-arg=-I${CMAKE_SOURCE_DIR}/source/include")
+option(ENABLE_CLANG_TIDY "Enable clang-tidy" ON)
+
+if (ENABLE_CLANG_TIDY)
+    if (CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+        find_program(CLANG_TIDY_EXE NAMES clang-tidy)
+        if(CLANG_TIDY_EXE)
+            set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXE};-header-filter=${CMAKE_SOURCE_DIR}/source/.*;-extra-arg=-I${CMAKE_SOURCE_DIR}/source/include")
+        endif()
     endif()
 endif()
 
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  GIT_REPOSITORY https://github.com/google/googletest.git
+  GIT_TAG        release-1.11.0
+)
+FetchContent_MakeAvailable(googletest)
+
+if(ENABLE_CLANG_TIDY AND CLANG_TIDY_EXE)
+    set_target_properties(gtest PROPERTIES CXX_CLANG_TIDY "")
+    set_target_properties(gmock PROPERTIES CXX_CLANG_TIDY "")
+    set_target_properties(gmock_main PROPERTIES CXX_CLANG_TIDY "")
+    set_target_properties(gtest_main PROPERTIES CXX_CLANG_TIDY "")
+endif()
+
 add_subdirectory(source)
+add_subdirectory(tests)
 
 file(GLOB_RECURSE ALL_SOURCE_FILES
     ${CMAKE_SOURCE_DIR}/source/src/*.cpp
