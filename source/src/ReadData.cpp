@@ -12,7 +12,7 @@ ReadData::~ReadData()
 
 void ReadData::readUserConfig()
 {
-    std::ifstream sampleValues("../source/configuration/values.txt");
+    std::ifstream sampleValues("../source/src/configuration/values.txt");
 
     if (!sampleValues.is_open())
     {
@@ -44,7 +44,7 @@ void ReadData::readUserConfig()
 void ReadData::readCellValues()
 {
     std::ifstream cellValues(
-        "../source/configuration/unitCellInfo.txt");
+        "../source/src/configuration/unitCellInfo.txt");
 
     if (!cellValues.is_open())
     {
