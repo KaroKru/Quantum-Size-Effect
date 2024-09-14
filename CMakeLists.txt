@@ -36,10 +36,13 @@ endif()
 add_subdirectory(source)
 add_subdirectory(tests)
 
+enable_testing()
+
 file(GLOB_RECURSE ALL_SOURCE_FILES
     ${CMAKE_SOURCE_DIR}/source/src/*.cpp
     ${CMAKE_SOURCE_DIR}/source/include/*.hpp
-    ${CMAKE_SOURCE_DIR}/source/include/*.h
+    ${CMAKE_SOURCE_DIR}/tests/src/*.cpp
+    ${CMAKE_SOURCE_DIR}/tests/include/*.hpp
 )
 
 add_custom_target(format
@@ -49,3 +52,19 @@ add_custom_target(format
     ${ALL_SOURCE_FILES}
     COMMENT "Running clang-format on source files"
 )
+
+if(ENABLE_CODE_COVERAGE)
+    find_program(LCOV_EXEC lcov)
+    find_program(GENHTML_EXEC genhtml)
+    if(LCOV_EXEC AND GENHTML_EXEC)
+        add_custom_target(coverage
+            COMMAND ${LCOV_EXEC} --capture --directory . --output-file coverage.info
+            COMMAND ${LCOV_EXEC} --remove coverage.info '/usr/*' '${CMAKE_BINARY_DIR}/*' --output-file coverage.info
+            COMMAND ${GENHTML_EXEC} -o coverage coverage.info
+            COMMENT "Generating coverage report"
+            VERBATIM
+        )
+    else()
+        message(WARNING "lcov or genhtml not found! Cannot generate coverage report.")
+    endif()
+endif()

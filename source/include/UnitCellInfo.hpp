@@ -1,14 +1,14 @@
 #ifndef UNITCELLINFO_HPP
 #define UNITCELLINFO_HPP
 
-#include "ReadData.hpp"
+#include "ReadDataInt.hpp"
 #include <vector>
 
 class UnitCellInfo
 {
   public:
     // constructor
-    UnitCellInfo(ReadData* readed);
+    UnitCellInfo(ReadDataInt* readed);
     // copy constructor
     UnitCellInfo(const UnitCellInfo& oth) = delete;
     // move constructor
@@ -25,7 +25,7 @@ class UnitCellInfo
     void setValue();
 
   private:
-    ReadData* cellData;
+    ReadDataInt* cellData;
     std::vector<ElementData> elementInfo;
 };
 

@@ -12,7 +12,8 @@ ReadData::~ReadData()
 
 void ReadData::readUserConfig()
 {
-    std::ifstream sampleValues("../source/src/configuration/values.txt");
+    std::ifstream sampleValues(
+        "../source/src/configuration/values.txt");
 
     if (!sampleValues.is_open())
     {

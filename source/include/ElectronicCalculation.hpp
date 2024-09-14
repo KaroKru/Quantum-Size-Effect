@@ -34,7 +34,7 @@ class ElectronicCalculation : public CalculationInt
     void calculation() override;
     void saved() override;
 
-  private:
+  public:
     std::unique_ptr<ElectronicDensity> densityResult;
     std::vector<ElectronicData> electronicInfo;
 };

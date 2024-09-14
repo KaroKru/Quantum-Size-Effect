@@ -1,30 +1,13 @@
 #ifndef READDATA_HPP
 #define READDATA_HPP
 
+#include "Data.hpp"
+#include "ReadDataInt.hpp"
 #include <iostream>
 #include <string>
 #include <vector>
 
-struct ElementData
-{
-    std::string elementSymbol;
-    int atomicNumber = 0;
-    std::string unitCellType;
-    double xCrystalLength = 0;
-    double yCrystalLength = 0;
-    double zCrystalLength = 0;
-    int electronNumber = 0;
-};
-
-struct ConfigData
-{
-    std::string element;
-    double xLength = 0;
-    double yLength = 0;
-    double zLength = 0; // sample thickness
-};
-
-class ReadData
+class ReadData : public ReadDataInt
 {
   public:
     // constructor
@@ -40,10 +23,10 @@ class ReadData
     // destructor
     ~ReadData();
 
-    void readUserConfig();
-    void readCellValues();
-    std::vector<ElementData> getCellValue();
-    std::vector<ConfigData> getSampleValue();
+    void readUserConfig() override;
+    void readCellValues() override;
+    std::vector<ElementData> getCellValue() override;
+    std::vector<ConfigData> getSampleValue() override;
 
   private:
     std::vector<ElementData> unitCell;

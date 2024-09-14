@@ -1,6 +1,7 @@
 #include "ElectronicCalculation.hpp"
 #include "ElectronicDensity.hpp"
 #include "ReadData.hpp"
+#include "ReadDataInt.hpp"
 #include "ResultCalculation.hpp"
 #include "SampleInfo.hpp"
 #include "SphereCalculation.hpp"
@@ -10,7 +11,7 @@
 
 int main()
 {
-    auto read = std::make_unique<ReadData>();
+    std::unique_ptr<ReadDataInt> read = std::make_unique<ReadData>();
     read->readUserConfig();
     read->readCellValues();
 

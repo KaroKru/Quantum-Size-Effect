@@ -9,7 +9,7 @@ class ElectronicDensity
     // constructor
     ElectronicDensity(SampleInfo* sampleValue);
     // copy costructor
-    ElectronicDensity(const ElectronicDensity& oth) = delete;
+    ElectronicDensity(const ElectronicDensity& oth) = default;
     // move constructor
     ElectronicDensity(ElectronicDensity&& oth) = delete;
     // copy operator
