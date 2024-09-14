@@ -7,6 +7,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
+option(ENABLE_CODE_COVERAGE "Enable code coverage" ON)
+
 option(ENABLE_CLANG_TIDY "Enable clang-tidy" ON)
 
 if (ENABLE_CLANG_TIDY)
@@ -54,11 +56,18 @@ add_custom_target(format
 )
 
 if(ENABLE_CODE_COVERAGE)
+    if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage -O0 -g")
+        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
+        set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} --coverage")
+    endif()
+
     find_program(LCOV_EXEC lcov)
     find_program(GENHTML_EXEC genhtml)
+
     if(LCOV_EXEC AND GENHTML_EXEC)
         add_custom_target(coverage
-            COMMAND ${LCOV_EXEC} --capture --directory . --output-file coverage.info
+            COMMAND ${LCOV_EXEC} --capture --directory ${CMAKE_BINARY_DIR} --output-file coverage.info
             COMMAND ${LCOV_EXEC} --remove coverage.info '/usr/*' '${CMAKE_BINARY_DIR}/*' --output-file coverage.info
             COMMAND ${GENHTML_EXEC} -o coverage coverage.info
             COMMENT "Generating coverage report"

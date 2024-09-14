@@ -18,4 +18,9 @@ add_executable(run
     src/main.cpp
 )
 
-target_link_libraries(run qse)
+target_link_libraries(run PRIVATE qse)
+
+if(ENABLE_CODE_COVERAGE)
+    target_compile_options(qse PRIVATE --coverage)
+    target_link_libraries(qse PRIVATE --coverage)
+endif()

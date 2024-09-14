@@ -29,3 +29,8 @@ if(ENABLE_CLANG_TIDY AND CLANG_TIDY_EXE)
 endif()
 
 gtest_discover_tests(qseTest XML_OUTPUT_DIR ${CMAKE_BINARY_DIR}/tests/qseTest)
+
+if(ENABLE_CODE_COVERAGE)
+    target_compile_options(qseTest PRIVATE --coverage)
+    target_link_libraries(qseTest PRIVATE --coverage)
+endif()
