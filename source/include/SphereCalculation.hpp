@@ -2,18 +2,10 @@
 #define SPHERECALCULATION_HPP
 
 #include "CalculationInt.hpp"
+#include "Data.hpp"
 #include "ResultCalculation.hpp"
 #include "SampleInfo.hpp"
 #include <vector>
-
-struct SampleData
-{
-    double samThickness = 0;
-    double samWaveVec = 0;
-    double samNumOfSubbands = 0;
-    double samStatestDensity = 0;
-    double samElectEnergy = 0;
-};
 
 class SphereCalculation : public CalculationInt
 {

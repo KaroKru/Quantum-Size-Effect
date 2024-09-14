@@ -1,14 +1,15 @@
 #ifndef SAMPLEINFO_HPP
 #define SAMPLEINFO_HPP
 
-#include "ReadData.hpp"
+#include "Data.hpp"
+#include "ReadDataInt.hpp"
 #include <vector>
 
 class SampleInfo
 {
   public:
     // constructor
-    SampleInfo(ReadData* dataValues);
+    SampleInfo(ReadDataInt* dataValues);
     // copy constructor
     SampleInfo(const SampleInfo& oth) = delete;
     // move constructor
@@ -25,7 +26,7 @@ class SampleInfo
     double getSampleThickness();
 
   private:
-    ReadData* dataReaded;
+    ReadDataInt* dataReaded;
     std::vector<ConfigData> userData;
 };
 

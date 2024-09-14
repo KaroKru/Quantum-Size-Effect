@@ -2,7 +2,7 @@
 #include <cmath>
 #include <iostream>
 
-UnitCellInfo::UnitCellInfo(ReadData* readed) : cellData(readed)
+UnitCellInfo::UnitCellInfo(ReadDataInt* readed) : cellData(readed)
 {
 }
 
