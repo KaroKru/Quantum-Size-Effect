@@ -6,6 +6,7 @@
 #include "SampleInfo.hpp"
 #include "SphereCalculation.hpp"
 #include "UnitCellInfo.hpp"
+#include "CalculationInt.hpp"
 #include <iostream>
 #include <memory>
 
@@ -26,15 +27,16 @@ int main()
 
     ResultCalculation resultCalculation(cell.get(), sample.get());
 
-    SphereCalculation sphere(sample.get(), &resultCalculation);
-    sphere.calculation();
-    sphere.saved();
+    std::unique_ptr<CalculationInt> calc;
+    calc = std::make_unique<SphereCalculation>(sample.get(), &resultCalculation);
+    calc->calculation();
+    calc->saved();
 
     auto density = std::make_unique<ElectronicDensity>(sample.get());
 
-    ElectronicCalculation electronic(std::move(density));
-    electronic.calculation();
-    electronic.saved();
+    calc = std::make_unique<ElectronicCalculation>(std::move(density));
+    calc->calculation();
+    calc->saved();
 
     return 0;
 }
