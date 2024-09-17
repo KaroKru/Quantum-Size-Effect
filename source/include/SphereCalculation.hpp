@@ -28,10 +28,11 @@ class SphereCalculation : public CalculationInt
     void calculation() override;
     void saved() override;
 
+    std::vector<SampleData> data;
+
   private:
     SampleInfo* sampleResult;
     ResultCalculation* calculationResults;
-    std::vector<SampleData> data;
 };
 
 #endif // SPHERECALCULATION_HPP
